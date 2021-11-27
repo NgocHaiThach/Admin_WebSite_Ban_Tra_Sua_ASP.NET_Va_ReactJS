@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { Suspense } from 'react';
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import './App.css';
+import Menu from './Layout/Menu';
+
+
+
+const HomePage = React.lazy(() => import('./Pages/HomePage'))
+const ProductListPage = React.lazy(() => import('./Pages/ProductListPage'))
+const UserListPage = React.lazy(() => import('./Pages/UserListPage'))
+const AddProductPage = React.lazy(() => import('./Pages/AddProductPage'))
+const EditPage = React.lazy(() => import('./Pages/EditPage'))
+const LoginPage = React.lazy(() => import('./Pages/LoginPage'))
+const NotFoundPage = React.lazy(() => import('./Pages/NotFoundPage'))
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <BrowserRouter>
+
+          <Menu />
+          <Switch >
+            <Redirect exact from='/' to='/home' />
+            <Route exact path='/home' component={HomePage} />
+            <Route exact path='/product/:id/edit' component={EditPage} />
+            <Route exact path='/products' component={ProductListPage} />
+            <Route exact path='/users' component={UserListPage} />
+            <Route exact path='/add' component={AddProductPage} />
+            <Route exact path='/login' component={LoginPage} />
+            <Route component={NotFoundPage} />
+          </Switch >
+
+        </BrowserRouter>
+      </Suspense>
     </div>
   );
 }
