@@ -1,43 +1,52 @@
 import React from 'react';
-import UserItem from '../UserItem';
 import { Row, Table } from 'react-bootstrap';
+import BillItem from '../BillItem';
 
+function BillList(props) {
+    const { billList } = props;
 
-function UserList(props) {
-    const { userList, handleDeleteUser } = props
     return (
+
         <Row>
             <div className="panel panel-primary">
                 <div className="panel-heading">
-                    <h3 className="panel-title mt-20 mb-40">Danh Người Dùng</h3>
+                    <h3 className="panel-title mt-20 mb-40">Danh Sách Hóa Đơn</h3>
                 </div>
+                {/* <form className='search-product mb-20'>
+                    <input className='search__input'
+                        placeholder='Loại sản phẩm bạn muốn tìm'
+                        value={search}
+                        onChange={onSearch}
+                    />
+                </form> */}
                 <div className="panel-body">
                     <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th >STT</th>
                                 <th >Mã</th>
-                                <th >Tài Khoản</th>
-                                <th >Mật Khẩu</th>
-                                <th >Tên</th>
-                                <th >Email</th>
-                                <th >Hoạt Động</th>
+                                <th >Tên Khách Hàng</th>
+                                <th >Tổng Tiền</th>
+                                <th >Thời Gian</th>
+                                <th >Chi Tiết</th>
                             </tr>
                         </thead>
-                        {userList.map((item, index) => (
+                        {billList.map((item, index) => (
                             <tbody key={index}>
-                                <UserItem
+                                <BillItem
                                     item={item}
                                     index={index}
-                                    handleDeleteUser={handleDeleteUser}
+
                                 />
                             </tbody>
                         ))}
                     </Table>
                 </div>
             </div>
+
         </Row>
+
     );
 }
 
-export default UserList;
+export default BillList;

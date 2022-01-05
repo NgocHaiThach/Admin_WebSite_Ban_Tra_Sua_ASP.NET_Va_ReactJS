@@ -2,31 +2,45 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function ProductItem(props) {
-    const { item, index, onDeleteProduct } = props
+
+function CategoryItem(props) {
+
+    const { item, index, handleDeleteCategory } = props
     const [show, setShow] = useState(false);
+    const [status, setStatus] = useState(true);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    //xử lý xóa sản phẩm
-    const handleDeleteProduct = (id) => {
-        onDeleteProduct(id)
-        handleClose()
+    const onDeleteCategory = (id) => {
+        handleDeleteCategory(id)
+        if (handleDeleteCategory) {
+            handleClose()
+        }
     }
 
+
     return (
+
         <tr>
             <td >{index + 1}</td>
-            <td >{item.productId}</td>
-            <td >{item.productName}</td>
             <td >{item.categoryId}</td>
-            <td >{item.price}</td>
-            <td >{item.inventory}</td>
+            <td >{item.categoryName}</td>
+            <td >
+                <label>
+                    <input
+                        className="checkbox-category__status"
+                        type="checkbox"
+                        defaultChecked={item.enable && 'checked'}
+                    />
+                    Còn hàng
+                </label>
+            </td>
+
             <td className="col-lg-2">
                 <Button variant="success"
                     className="mr-5"
                 >
-                    <Link to={`/product/${item.productId}/edit`}>
+                    <Link to={`/category/${item.categoryId}/edit`}>
                         Sửa
                     </Link>
                 </Button>
@@ -48,7 +62,8 @@ function ProductItem(props) {
                     </Button>
                     <Button
                         variant="danger"
-                        onClick={() => handleDeleteProduct(item.productId)}>
+                        onClick={() => onDeleteCategory(item.categoryId)}
+                    >
                         Xóa sản phẩm
                     </Button>
                 </Modal.Footer>
@@ -57,4 +72,4 @@ function ProductItem(props) {
     );
 }
 
-export default ProductItem;
+export default CategoryItem;

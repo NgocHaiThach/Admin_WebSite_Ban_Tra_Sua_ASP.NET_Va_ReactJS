@@ -1,59 +1,61 @@
 import React, { useEffect, useState } from 'react';
-
 import { Button, Container } from 'react-bootstrap';
+import CategoryList from '../../Layout/CategoryList';
 import { Link } from 'react-router-dom';
-import ProductList from '../../Layout/ProductList';
-import { FormatInput } from '../../Utils/FormatInput';
 import RequestApi from '../../Utils/RequestApi';
+import { FormatInput } from '../../Utils/FormatInput';
 import cookies from 'react-cookies';
 
 
-function ProductListPage(props) {
+function CategoryListPage(props) {
+
     const adminInfo = cookies.load('admin')
 
-    const [input, setInput] = useState('')
-    const [productList, setProductList] = useState([])
+    const [categoryList, setCategoryList] = useState([])
     const [listToSearch, setListToSearch] = useState([])
+    const [input, setInput] = useState('')
 
-    //get api lưu vào productList để cho việc hiển thị  
-    const getProductList = async () => {
-        const res = await RequestApi('api/products/full', 'GET')
-        setProductList(res.data)
+    //get api lưu vào ListToSearch để cho việc hiển thị  
+    const getCategoryList = async () => {
+        const res = await RequestApi('api/categories/full', 'GET')
+        setCategoryList(res.data)
     }
 
     //get api lưu vào ListToSearch để cho việc filter 
     const getToSearch = async () => {
-        const res = await RequestApi('api/products/full', 'GET')
+        const res = await RequestApi('api/categories/full', 'GET')
         setListToSearch(res.data)
     }
 
     useEffect(() => {
-        getProductList()
+        getCategoryList()
     }, [])
 
     useEffect(() => {
         getToSearch()
     }, [input])
 
-    //xu ly search product
+
+    //xu ly search category
     const handleSearch = (input) => {
 
         const val = FormatInput(input.search)
         const filter = listToSearch.filter((item) => {
-            const name = FormatInput(item.productName)
+            const name = FormatInput(item.categoryName)
             if (name.includes(val)) {
                 return item
             }
         })
-        setProductList(filter)
+        setCategoryList(filter)
         setInput(input)
     }
 
-    //xu ly xoa 1 san pham
-    const handleDeleteProduct = async (id) => {
+
+    //xu ly xoa category
+    const handleDeleteCategory = async (id) => {
         try {
-            await RequestApi(`api/products/${id}`, 'DELETE')
-            getProductList()
+            await RequestApi(`api/categories/${id}`, 'DELETE')
+            getCategoryList()
         }
         catch (err) {
             console.log(err);
@@ -61,21 +63,22 @@ function ProductListPage(props) {
     }
 
     return (
-        <>
+        <div>
             {adminInfo && <Container>
                 <Button variant="primary" className="mb-20 mt-20 button-custome">
-                    <Link to='/add/products'>
-                        Thêm sản phẩm
+                    <Link to='/add/categories'>
+                        Thêm loại sản phẩm
                     </Link>
                 </Button>
-                <ProductList
-                    productList={productList}
+
+                <CategoryList
+                    categoryList={categoryList}
                     handleSearch={handleSearch}
-                    handleDeleteProduct={handleDeleteProduct}
+                    handleDeleteCategory={handleDeleteCategory}
                 />
             </Container>}
-        </>
+        </div>
     );
 }
 
-export default ProductListPage;
+export default CategoryListPage;

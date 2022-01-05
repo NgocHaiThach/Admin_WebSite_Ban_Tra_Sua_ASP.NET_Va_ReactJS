@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
+import CategoryItem from '../CategoryItem';
 import { Row, Table } from 'react-bootstrap';
-import ProductItem from '../ProductItem';
 
-function ProductList(props) {
-    const { productList, handleSearch, handleDeleteProduct } = props
+
+function CategoryList(props) {
+    const { categoryList, handleSearch, handleDeleteCategory } = props
+
     const [search, setSearch] = useState('')
     const typingTimoutRef = useRef(null)
 
@@ -25,21 +27,15 @@ function ProductList(props) {
         }, 300)
 
     }
-
-    const onDeleteProduct = (id) => {
-        handleDeleteProduct(id)
-    }
-
     return (
-
         <Row>
             <div className="panel panel-primary">
                 <div className="panel-heading">
-                    <h3 className="panel-title mb-40">Danh Sách Sản Phẩm</h3>
+                    <h3 className="panel-title mb-40">Danh Sách Loại Sản Phẩm</h3>
                 </div>
                 <form className='search-product mb-20'>
                     <input className='search__input'
-                        placeholder='Sản phẩm bạn muốn tìm'
+                        placeholder='Loại sản phẩm bạn muốn tìm'
                         value={search}
                         onChange={onSearch}
                     />
@@ -51,18 +47,16 @@ function ProductList(props) {
                                 <th >STT</th>
                                 <th >Mã</th>
                                 <th >Tên</th>
-                                <th >Loại</th>
-                                <th >Giá</th>
-                                <th >Số lượng</th>
+                                <th >Trạng thái</th>
                                 <th >Hoạt động</th>
                             </tr>
                         </thead>
-                        {productList.map((item, index) => (
+                        {categoryList.map((item, index) => (
                             <tbody key={index}>
-                                <ProductItem
+                                <CategoryItem
                                     item={item}
                                     index={index}
-                                    onDeleteProduct={onDeleteProduct}
+                                    handleDeleteCategory={handleDeleteCategory}
                                 />
                             </tbody>
                         ))}
@@ -73,4 +67,4 @@ function ProductList(props) {
     );
 }
 
-export default ProductList;
+export default CategoryList;

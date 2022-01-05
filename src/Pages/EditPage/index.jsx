@@ -1,32 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router';
 import EditForm from '../../Layout/EditForm';
-import requestApi from '../../Utils/RequestApi';
+import RequestApi from '../../Utils/RequestApi';
+import cookies from 'react-cookies';
 
 function EditPage(props) {
 
+    const adminInfo = cookies.load('admin')
+
     const { id } = useParams()
-    const [productList, setProductList] = useState([])
-    const getProductList = async () => {
-        const res = await requestApi('api/products', 'GET')
-        setProductList(res.data)
+    const [valueUpdate, setValueUpdate] = useState()
+
+    const getProductEdit = async () => {
+        try {
+            const res = await RequestApi(`api/products/full/${id}`, 'GET')
+            setValueUpdate(res.data)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     useEffect(() => {
-        getProductList()
+        getProductEdit()
     }, [])
 
-    const valueUpdate = productList.find(item => item.productId === +id)
-    console.log('item', valueUpdate)
+
+    const handleEditProduct = async (item) => {
+        try {
+            await RequestApi(`api/products/${id}`, 'PUT', {
+                productId: id,
+                productName: item.name,
+                image: item.image,
+                price: item.price,
+                description: item.description,
+                inventory: item.quantity,
+                categoryId: item.category,
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
-        <Container>
-            <h3 className="mt-20">Sửa Sản Phẩm</h3>
-            {valueUpdate && <EditForm valueUpdate={valueUpdate} />}
-            {valueUpdate && <Button variant="secondary" className="mr-5">Trở Lại</Button>}
-            {valueUpdate && <Button variant="primary" className="ml-5">Lưu Lại</Button>}
-        </Container>
+        <>
+            {adminInfo && <Container>
+                <h3 className="mt-20">Sửa Sản Phẩm</h3>
+                {valueUpdate && <EditForm
+                    valueUpdate={valueUpdate}
+                    handleEditProduct={handleEditProduct}
+                />}
+            </Container>}
+        </>
     );
 }
 

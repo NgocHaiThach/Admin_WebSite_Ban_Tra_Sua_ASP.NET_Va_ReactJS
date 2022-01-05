@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import UserList from '../../Layout/UserList';
 import requestApi from '../../Utils/RequestApi';
+import cookies from 'react-cookies';
 
 function UserListPage(props) {
+
+    const adminInfo = cookies.load('admin')
 
     const [userList, setUserList] = useState([])
 
@@ -15,10 +18,24 @@ function UserListPage(props) {
     useEffect(() => {
         getUser()
     }, [])
+
+    const handleDeleteUser = async (id) => {
+        try {
+            await requestApi(`api/users/${id}`, 'DELETE')
+            getUser()
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
     return (
-        <Container>
-            <UserList userList={userList} />
-        </Container>
+        <>
+            {adminInfo && <Container>
+                <UserList userList={userList}
+                    handleDeleteUser={handleDeleteUser}
+                />
+            </Container>}
+        </>
     );
 }
 
