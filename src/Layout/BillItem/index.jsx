@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { formatPrice } from '../../Utils/FormatPrice';
 
 function BillItem(props) {
 
@@ -19,7 +20,7 @@ function BillItem(props) {
                 <td >{index + 1}</td>
                 <td >{item.orderId}</td>
                 <td >{item.receive.name}</td>
-                <td >{item.totolPrice}</td>
+                <td >{formatPrice(item.totolPrice)}đ</td>
                 <td >{item.orderDate}</td>
 
                 <td className="col-lg-2">

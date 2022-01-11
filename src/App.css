@@ -66,8 +66,7 @@ a:hover {
     margin-right: 5px;
 }
 
-/* .login {
-    color: black;
-    margin: 0 0 0 920px;
-    font-size: 16px;
-} */
+.total-money {
+    font-size: 22px;
+    margin-bottom: 15px;
+}

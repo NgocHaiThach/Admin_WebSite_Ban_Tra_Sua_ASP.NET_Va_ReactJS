@@ -4,6 +4,7 @@ import ProductItem from '../ProductItem';
 
 function ProductList(props) {
     const { productList, handleSearch, handleDeleteProduct } = props
+    const lengthProduct = productList.length
     const [search, setSearch] = useState('')
     const typingTimoutRef = useRef(null)
 
@@ -37,6 +38,11 @@ function ProductList(props) {
                 <div className="panel-heading">
                     <h3 className="panel-title mb-40">Danh Sách Sản Phẩm</h3>
                 </div>
+
+                <div className="total-money">
+                    Tổng số sản phẩm: {lengthProduct}
+                </div>
+
                 <form className='search-product mb-20'>
                     <input className='search__input'
                         placeholder='Sản phẩm bạn muốn tìm'

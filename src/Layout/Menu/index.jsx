@@ -21,23 +21,26 @@ function Menu(pros) {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link className="menu__link" to="/home">
+                        {/* <Link className="menu__link" to="/home">
                             {adminInfo !== undefined ? "Trang Chủ" : ''}
-                        </Link>
+                        </Link> */}
                         <Link className="menu__link" to="/products">
-                            {adminInfo !== undefined ? "Quản Lý Sản Phẩm" : ''}
+                            {adminInfo !== undefined ? "Q.Lý Sản Phẩm" : ''}
                         </Link>
                         <Link className="menu__link" to="/categories">
-                            {adminInfo !== undefined ? "Quản Lý Loại Sản Phẩm" : ''}
+                            {adminInfo !== undefined ? "Q.Lý Loại Sản Phẩm" : ''}
                         </Link>
                         <Link className="menu__link" to="/users">
-                            {adminInfo !== undefined ? "Quản Lý Users" : ''}
+                            {adminInfo !== undefined ? "Q.Lý Users" : ''}
                         </Link>
                         <Link className="menu__link" to="/bills">
-                            {adminInfo !== undefined ? "Quản Lý Hóa Đơn" : ''}
+                            {adminInfo !== undefined ? "Q.Lý Hóa Đơn" : ''}
                         </Link>
                         <Link className="menu__link" to="/chart_product">
-                            {adminInfo !== undefined ? "Biểu đồ" : ''}
+                            {adminInfo !== undefined ? "Q.Lý Kho" : ''}
+                        </Link>
+                        <Link className="menu__link" to="/chart_sold">
+                            {adminInfo !== undefined ? "Q.Lý Doanh Thu" : ''}
                         </Link>
                         <p className="menu__link">
                             {adminInfo !== undefined ? adminInfo.resultAdmin.fullName : ''}

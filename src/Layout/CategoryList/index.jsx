@@ -5,7 +5,7 @@ import { Row, Table } from 'react-bootstrap';
 
 function CategoryList(props) {
     const { categoryList, handleSearch, handleDeleteCategory } = props
-
+    const lengthCategory = categoryList.length
     const [search, setSearch] = useState('')
     const typingTimoutRef = useRef(null)
 
@@ -33,6 +33,11 @@ function CategoryList(props) {
                 <div className="panel-heading">
                     <h3 className="panel-title mb-40">Danh Sách Loại Sản Phẩm</h3>
                 </div>
+
+                <div className="total-money">
+                    Tổng số loại sản phẩm: {lengthCategory}
+                </div>
+
                 <form className='search-product mb-20'>
                     <input className='search__input'
                         placeholder='Loại sản phẩm bạn muốn tìm'

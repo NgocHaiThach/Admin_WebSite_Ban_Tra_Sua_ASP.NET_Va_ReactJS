@@ -15,6 +15,7 @@ const EditPage = React.lazy(() => import('./Pages/EditPage'))
 const EditCategoryPage = React.lazy(() => import('./Pages/EditCategoryPage'))
 const LoginPage = React.lazy(() => import('./Pages/LoginPage'))
 const ChartProductPage = React.lazy(() => import('./Pages/ChartProductPage'))
+const ChartSoldPage = React.lazy(() => import('./Pages/ChartSoldPage'))
 const BillPage = React.lazy(() => import('./Pages/BillPage'))
 const BillDetailPage = React.lazy(() => import('./Pages/BillDetailPage'))
 // const NotFoundPage = React.lazy(() => import('./Pages/NotFoundPage'))
@@ -42,6 +43,7 @@ function App() {
         <Route exact path='/add/products' component={AddProductPage} />
         <Route exact path='/add/categories' component={AddCategoryPage} />
         <Route exact path='/chart_product' component={ChartProductPage} />
+        <Route exact path='/chart_sold' component={ChartSoldPage} />
         <Route exact path='/bills' component={BillPage} />
         <Route exact path='/bill/:id/detail' component={BillDetailPage} />
         {/* <Redirect exact="/" to="/home" /> */}
