@@ -12,14 +12,18 @@ function ProductListPage(props) {
     const adminInfo = cookies.load('admin')
 
     const [input, setInput] = useState('')
-    const [productList, setProductList] = useState([])
     const [listToSearch, setListToSearch] = useState([])
 
     //get api lưu vào productList để cho việc hiển thị  
+
+    const [productList, setProductList] = useState([])
     const getProductList = async () => {
         const res = await RequestApi('api/products/full', 'GET')
-        setProductList(res.data)
+        return setProductList(res.data)
     }
+    useEffect(() => {
+        getProductList()
+    }, [])
 
     //get api lưu vào ListToSearch để cho việc filter 
     const getToSearch = async () => {
@@ -27,9 +31,7 @@ function ProductListPage(props) {
         setListToSearch(res.data)
     }
 
-    useEffect(() => {
-        getProductList()
-    }, [])
+
 
     useEffect(() => {
         getToSearch()
@@ -47,6 +49,7 @@ function ProductListPage(props) {
         })
         setProductList(filter)
         setInput(input)
+        console.log("filter", filter)
     }
 
     //xu ly xoa 1 san pham
